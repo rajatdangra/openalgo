@@ -225,8 +225,10 @@ def install() -> bool:
         if _installed:
             return True
         try:
-            from litellm.completion_extras.litellm_responses_transformation import (
-                transformation,
+            from services.agent import litellm_loader
+
+            transformation = litellm_loader.load(
+                "litellm.completion_extras.litellm_responses_transformation.transformation"
             )
 
             iterator_cls = transformation.OpenAiResponsesToChatCompletionStreamIterator

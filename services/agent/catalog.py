@@ -82,7 +82,7 @@ from dataclasses import dataclass
 from types import MappingProxyType
 from typing import Any
 
-from services.agent import chatgpt_models
+from services.agent import chatgpt_models, litellm_loader
 from services.agent.providers import PROVIDER_KINDS
 from utils.logging import get_logger
 
@@ -681,7 +681,9 @@ def _litellm() -> Any | None:
     """
     global _import_failed
     try:
-        import litellm
+        # Through the loader: two first imports racing each other deadlock in
+        # Python's import system and leave a half-built package behind.
+        litellm = litellm_loader.load()
     except Exception:
         if not _import_failed:
             _import_failed = True

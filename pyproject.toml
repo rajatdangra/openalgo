@@ -167,6 +167,9 @@ dependencies = [
   "zipp==3.23.1",
   "opengreeks>=0.2.0",
   "openstatz==0.4.1",
+  # litellm's MCP gateway needs mcp 2.x, while mcp stays on 1.x for the FastMCP
+  # server in mcp/mcpserver.py. services/agent/litellm_mcp_gateway.py keeps that
+  # gateway out of agent requests; run test/test_agent_litellm_*.py on a bump.
   "litellm==1.106.6",
   "agno==3.0.5",
   "ddgs>=9.16.0",
