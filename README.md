@@ -24,7 +24,7 @@ OpenAlgo is no longer just "an API layer in front of your broker." Today it comb
 | **Python Strategy Host** | `/python` | Traders who code: paste any Python script into the in-browser CodeMirror editor, schedule it on IST start/stop times, run multiple strategies in parallel with process isolation, watch real-time logs. No external server, no Docker, no cron. |
 | **Flow: No-Code Strategy Builder** | `/flow` | Traders who don't code: drag-and-drop nodes for market data, indicators, conditions, order execution, and notifications. Webhook triggers for TradingView and external signals built in. JSON import/export for sharing strategies. |
 | **AI Agent** | `/agent` | Traders who would rather ask: a chat that reads your own market data through OpenAlgo's services, draws charts and payoff diagrams, computes indicators, marks up the `/trading` chart from a right-side panel, and can place orders only with your explicit approval on every single one. Bring your own model from any LiteLLM provider, or a ChatGPT Plus or Pro subscription, or run it locally against Ollama. |
-| **Options Trading Suite** | `/tools` | Options traders: twelve built-in analytical tools (Strategy Builder with payoff diagrams & live Greeks, Option Chain, IV Smile, Max Pain, Vol Surface, GEX dashboard, OI Tracker, OI Profile, Straddle Chart, Straddle PnL simulator, Option Greeks history). Each one streams from your connected broker. |
+| **Options & Portfolio Suite** | `/tools` | Options traders and investors: twenty built-in analytical tools. Options analytics (Strategy Builder with payoff diagrams & live Greeks, Option Chain, Option Greeks history, OI Tracker, OI Range, Max Pain, Straddle Chart, Straddle PnL simulator, Vol Surface, GEX dashboard, Strike Profile, Gamma Density, IV Smile, OI Profile, futures calendar-spread Arbitrage) plus portfolio and investment tools (Strategy Portfolio, Portfolio Backtester, SIP Backtester, Portfolio Analyzer, Sector Rotation). Live tools stream from your connected broker. |
 
 Order workflows from the REST API, hosted strategies, and Flow can use Analyzer Mode before live execution. Analytics pages, dashboards, PnL tracking, latency monitoring, notifications, and MCP reuse the same application services where their specific capabilities apply.
 
@@ -116,23 +116,31 @@ Build trading strategies visually without writing code:
 - **JSON import/export** for sharing strategies between traders
 - **Visual debugging** with execution flow highlighting
 
-### Options & Strategy Analytics Tools (`/tools`)
-A suite of twelve built-in analytical tools for options trading and market analysis. The pages use the active broker connection; broker market-data entitlements and exchange coverage still apply. Accessible from the **Tools** page in the sidebar:
+### Options, Portfolio & Strategy Analytics Tools (`/tools`)
+A suite of twenty built-in analytical tools for options trading, portfolio research and market analysis. The list is defined once in `frontend/src/lib/tools.ts`, which both the Tools page and the home page read. The pages use the active broker connection; broker market-data entitlements and exchange coverage still apply. Accessible from the **Tools** page in the sidebar:
 
 | Tool | Route | What it does |
 |------|-------|--------------|
 | **Strategy Builder** | `/strategybuilder` | Build multi-leg option strategies with live Greeks, payoff diagrams, what-if simulators, Strategy Chart, Multi Strike OI tabs, and basket order execution |
 | **Strategy Portfolio** | `/strategybuilder/portfolio` | Saved strategies across MyTrades and Simulation watchlists |
+| **Portfolio Backtester** | `/portfolio-backtester` | Backtest a weighted portfolio against an index with real delivery costs, rebalancing rules, crisis periods and a full tearsheet |
+| **SIP Backtester** | `/sip-backtester` | Monthly, weekly or quarterly SIP returns: XIRR, rupee-cost averaging, start-date sensitivity and a lumpsum comparison |
+| **Portfolio Analyzer** | `/portfolio-analyzer` | Grade the holdings you own: concentration, co-movement, drawdown resilience and behaviour in past crises |
+| **Sector Rotation** | `/sector-rotation` | Which NSE sectors, stocks and indices are leading, weakening, lagging or improving against a benchmark, with daily or weekly trails |
 | **Option Chain** | `/optionchain` | Real-time option chain with live Greeks, OI data, and quick order placement |
 | **Option Greeks** | `/ivchart` | Historical IV, Delta, Theta, Vega, and Gamma charts for ATM options |
 | **OI Tracker** | `/oitracker` | Open Interest analysis with CE/PE OI bars, PCR overlay, and ATM strike marker |
+| **OI Range** | `/oirange` | Open Interest by strike for a custom range with ATM-relative quick selectors and optional 1-minute auto-refresh |
 | **Max Pain** | `/maxpain` | Max Pain strike calculation with visual pain distribution across strikes |
 | **Straddle Chart** | `/straddle` | Dynamic ATM Straddle chart with rolling strike, Spot, and Synthetic Futures overlay |
 | **Straddle PnL** | `/straddlepnl` | Simulated intraday ATM straddle P&L with automated N-point adjustments and trade log |
 | **Vol Surface** | `/volsurface` | 3D Implied Volatility surface across strikes and expiries using live option chain data |
 | **GEX Dashboard** | `/gex` | Gamma Exposure analysis with OI Walls, Net GEX per strike, and top gamma strikes |
+| **Strike Profile** | `/strikeprofile` | GEX and DEX heatmap by strike and expiry with per-expiry peaks, gamma flip, call and put walls |
+| **Gamma Density** | `/gammadensity` | Gamma x OI density and convexity zones with intraday and to-expiry views, ATM IV, and 1 and 2 sigma expected-move bands |
 | **IV Smile** | `/ivsmile` | Implied Volatility smile with Call/Put IV curves, ATM IV, and skew analysis |
 | **OI Profile** | `/oiprofile` | Futures candlestick with OI butterfly and daily OI change across strikes |
+| **Arbitrage** | `/arbitrage` | Realtime futures calendar-spread scanner across NFO and MCX, ranked by executable bid/ask spread % with one-click two-leg orders |
 
 Tools use the active broker's REST and WebSocket capabilities. Data availability and supported exchanges vary by plugin and account entitlement.
 

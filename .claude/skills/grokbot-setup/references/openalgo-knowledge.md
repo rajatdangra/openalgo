@@ -111,7 +111,7 @@ openalgo-charts and Plotly. Diagram: `docs/architecture-diagram.png`.
 | Python Strategy Host | `/python` | In-browser editor; IST start and stop schedules; each script an isolated subprocess with live logs |
 | Flow | `/flow` | No-code node graph (xyflow): market data -> indicators -> conditions -> orders; webhook triggers; JSON import and export (section 14). Node count: 61 on docs.openalgo.in, 53 on openalgo.in |
 | Strategy Module and RMS | `/strategy` | Multi-leg options strategies with risk rules from `services/risk/`; kinds `batch` (all legs together) and `signal` (one leg per alert); created only in the browser wizard; driven over `/api/v1/strategy/*` or a webhook token |
-| Options and Portfolio tools | `/tools` | 18 tools (registry `frontend/src/lib/tools.ts`): Option Chain, Greeks, OI Tracker, Max Pain, Vol Surface, GEX, IV Smile, Straddle, Arbitrage, Strategy Builder, Portfolio and SIP Backtesters, Portfolio Analyzer and more. README says 12 |
+| Options and Portfolio tools | `/tools` | 20 tools (registry `frontend/src/lib/tools.ts`): Option Chain, Greeks, OI Tracker, Max Pain, Vol Surface, GEX, IV Smile, Straddle, Arbitrage, Strategy Builder, Portfolio and SIP Backtesters, Portfolio Analyzer, Sector Rotation and more |
 | Charting Terminal | `/trading` | Built on `openalgo-charts`; line-based chart trading, order dock; up to 7 saved layouts, grids up to 4x2; Scripts, Backtest and Strategies panels for OpenScript; custom JS indicators load at runtime |
 | Scalping Terminal | `/scalping` | Keyboard-driven index options scalping; NRML/MIS only, never CNC; server-side stop, target, trail |
 | AI Agent | `/agent` | Chat over market data, charts, payoffs and `ta` indicators; every order waits for explicit approval; LiteLLM providers, ChatGPT subscription OAuth, or Ollama |
@@ -496,7 +496,7 @@ Use the `openscript` skill to write, validate and install scripts.
 | `API_RATE_LIMIT` default | `docs/api/README.md`: 50 per second | `.sample.env`: 100 per second | Read the user's `.env` |
 | NCO symbols | DDMMMYY rule | examples `ALUMINI26MAYFUT` have no day | Confirm with `search`/`symbol` |
 | Crypto perpetual suffix | some comments `BTCUSD.P` | served form `BTCUSDFUT` | Use `...FUT` |
-| `/tools` count | README 12 | CLAUDE.md, docs site 18 | 18 (registry) |
+| `/tools` count | docs site may lag | README, CLAUDE.md 20 | 20 (registry) |
 | Flow node count | docs.openalgo.in 61 | openalgo.in 53 | Use the type list in section 14 |
 | Broker count | README 35 + Delta | docs 34 + Dhan sandbox + Delta; `VALID_BROKERS` 37 codes | Use [brokers.md](brokers.md) |
 | Login type labels | `BrokerSelect.tsx` marks Groww, AliceBlue, Zebu, Shoonya as `totp` | backend flow differs | Follow [brokers.md](brokers.md) |
